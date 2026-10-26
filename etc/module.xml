@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © OOCS Commerce (https://www.oocscommerce.com). All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
+    <module name="OOCS_LynxTheme">
+        <sequence>
+            <!-- Helper\Theme reads the Lynx-theme rule from Helper\ThemeIdentity. -->
+            <module name="OOCS_LynxComponent"/>
+            <module name="OOCS_LynxPageBuilder"/>
+            <module name="OOCS_LynxThemeComponent"/>
+        </sequence>
+    </module>
+</config>

@@ -1,0 +1,36 @@
+{
+  "name": "@oocs/module-lynx-theme",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./build/index.js",
+    "./prettier": "./build/prettier.config.js",
+    "./test": "./build/test-utils.js"
+  },
+  "bin": {
+    "lynx-tsconfig-vue": "./build/write-tsconfig.mjs",
+    "lynx-lint-vue": "./build/lint.mjs",
+    "lynx-format-vue": "./build/format.mjs"
+  },
+  "dependencies": {
+    "@inertiajs/vue3": "3.9.1",
+    "pinia": "4.1.0",
+    "valibot": "1.5.0",
+    "vue": "3.5.44"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "4.3.3",
+    "@vitejs/plugin-vue": "6.0.10",
+    "@vue/test-utils": "2.5.1",
+    "daisyui": "5.7.50",
+    "globals": "17.13.0",
+    "happy-dom": "21.0.4",
+    "prettier": "3.9.10",
+    "tailwindcss": "4.3.3",
+    "typescript": "5.9.3",
+    "vite": "8.3.5",
+    "vitest": "5.0.5",
+    "vue-tsc": "3.3.13"
+  }
+}

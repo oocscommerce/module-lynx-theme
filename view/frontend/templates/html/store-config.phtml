@@ -1,0 +1,13 @@
+<?php
+/**
+ * Copyright © OOCS Commerce (https://www.oocscommerce.com). All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+
+// JSON data block, not an executable script: no CSP nonce, safe in the block cache.
+/** @var \OOCS\LynxTheme\Block\Html\StoreConfig $block */
+
+/** @var \OOCS\LynxTheme\ViewModel\StoreConfig $viewModel */
+$viewModel = $block->getViewModel();
+?>
+<script type="application/json" id="lynx-store-config"><?= /* @noEscape */ $viewModel->getConfigJson() ?></script>

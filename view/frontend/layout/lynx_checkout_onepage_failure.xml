@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © OOCS Commerce (https://www.oocscommerce.com). All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+-->
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="lynx_no_cacheable"/>
+    <head>
+        <meta name="robots" content="NOINDEX,NOFOLLOW"/>
+    </head>
+    <body>
+        <referenceBlock name="lynx.inertia">
+            <arguments>
+                <!-- Personal data, never in the full page cache: drawn in the browser, never server rendered. -->
+                <argument name="ssr" xsi:type="boolean">false</argument>
+                <argument name="encrypt_history" xsi:type="boolean">true</argument>
+            </arguments>
+        </referenceBlock>
+    </body>
+</page>

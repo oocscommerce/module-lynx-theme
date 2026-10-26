@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © OOCS Commerce (https://www.oocscommerce.com). All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <!--
+            Groups in OOCS_LynxPageBuilder's Design section: which Magento theme renders what Lynx does not.
+            Values stay under lynx_fallback/* (config_path); defaults in etc/config.xml.
+        -->
+        <section id="lynx_design">
+            <group id="fallback" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Page Fallback</label>
+                <field id="enabled" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Enable Fallback</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <config_path>lynx_fallback/general/enabled</config_path>
+                    <comment>On, the pages listed under Fallback Routes render with the theme below instead of Lynx. No leaves every page on Lynx.</comment>
+                </field>
+                <field id="fallback_theme" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Fallback Theme</label>
+                    <source_model>OOCS\LynxTheme\Model\Config\Source\FallbackTheme</source_model>
+                    <config_path>lynx_fallback/general/fallback_theme</config_path>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                    <validate>required-entry</validate>
+                    <comment>The theme those pages render as.</comment>
+                </field>
+                <field id="actions" translate="label comment" type="textarea" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Fallback Routes</label>
+                    <config_path>lynx_fallback/general/actions</config_path>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                    <comment><![CDATA[One full action name per line, e.g. <em>shipping_tracking_popup</em>; <em>multishipping_*</em> matches by prefix.]]></comment>
+                </field>
+            </group>
+            <group id="email" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Email</label>
+                <field id="theme" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Email Theme</label>
+                    <source_model>OOCS\LynxTheme\Model\Config\Source\FallbackTheme</source_model>
+                    <config_path>lynx_fallback/email/theme</config_path>
+                    <comment>The theme emails render with on a Lynx store.</comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

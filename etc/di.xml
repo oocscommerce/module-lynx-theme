@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © OOCS Commerce (https://www.oocscommerce.com). All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Framework\Console\CommandList">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="lynxThemeCreate" xsi:type="object">OOCS\LynxTheme\Console\Command\ThemeCreate</item>
+                <item name="lynxThemeSetup" xsi:type="object">OOCS\LynxTheme\Console\Command\ThemeSetup</item>
+                <item name="lynxStaticDeploy" xsi:type="object">OOCS\LynxTheme\Console\Command\StaticDeploy</item>
+                <item name="lynxStaticTest" xsi:type="object">OOCS\LynxTheme\Console\Command\StaticTest</item>
+            </argument>
+        </arguments>
+    </type>
+    <!--
+        Emails of a Lynx store render with a Magento theme (lynx_fallback/email/theme): sent from any area, so global.
+    -->
+    <type name="Magento\Email\Model\Template">
+        <plugin name="oocs_lynxtheme_email_template_design" type="OOCS\LynxTheme\Plugin\EmailTemplateDesign" sortOrder="10"/>
+    </type>
+    <type name="Magento\Framework\View\DesignInterface">
+        <plugin name="oocs_lynxtheme_email_theme" type="OOCS\LynxTheme\Plugin\EmailTheme" sortOrder="20"/>
+    </type>
+</config>

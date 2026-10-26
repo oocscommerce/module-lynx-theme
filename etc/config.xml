@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © OOCS Commerce (https://www.oocscommerce.com). All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <lynx_fallback>
+            <general>
+                <enabled>0</enabled>
+                <fallback_theme>1</fallback_theme>
+                <!-- Pages Lynx has none of; paypal_express_* is Lynx's (OOCS_LynxPaymentPaypal) -->
+                <actions>multishipping_*
+shipping_tracking_popup
+paypal_billing_agreement_*
+paypal_payflow*
+transparent_payment_*
+paymentservicespaypal_*</actions>
+            </general>
+            <email>
+                <theme>1</theme>
+            </email>
+        </lynx_fallback>
+    </default>
+</config>

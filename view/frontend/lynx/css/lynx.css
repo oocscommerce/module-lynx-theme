@@ -1,0 +1,252 @@
+/*
+ * Shared by every Lynx theme (imported as OOCS_LynxTheme/css/lynx.css): component library setup, design tokens
+ * the Theme tab overrides on :root, the frame grid and the rules that bend the components to the settings.
+ */
+/* The plugin gives the component classes only; the palette comes from the tokens in @layer base. */
+@plugin "daisyui" {
+  themes: false;
+  /* Prefixed so common words in the source (menu, link, table) do not pull in components. */
+  prefix: l-;
+  /* Only components that carry a theme setting (Shape group); everything else is plain Tailwind. */
+  include: button, input, select, textarea, checkbox, radio, alert, card, table,
+    skeleton, collapse, badge;
+  /* No banner on every build */
+  logs: false;
+}
+
+/* hover: on any device, not only under (hover: hover): a touch device in desktop view (iPad) would never open the
+   hover-driven menus, and the media query flips with the pointer attached. */
+@custom-variant hover (&:hover);
+
+/* Lynx-only tokens: type scale, frame widths, shadows. Palette and shape are in @layer base. */
+@theme {
+  /* --font-sans is set by each theme's styles.css. Storefront components stop at text-sm (14px). */
+  /* lg and up are the heading sizes: the Heading font scale setting multiplies them. */
+  --text-2xs: 0.6875rem;            /* 11px */
+  --text-2xs--line-height: 1.5;
+  --text-xs: 0.75rem;               /* 12px */
+  --text-xs--line-height: 1.5;
+  --text-sm: 0.875rem;              /* 14px */
+  --text-sm--line-height: 1.5;
+  --text-base: 1rem;                /* 16px */
+  --text-base--line-height: 1.5;
+  --text-lg: calc(1.125rem * var(--heading-scale) / 100);             /* 18px */
+  --text-lg--line-height: calc(1.75 / 1.125);
+  --text-xl: calc(1.25rem * var(--heading-scale) / 100);              /* 20px */
+  --text-xl--line-height: calc(1.75 / 1.25);
+  --text-2xl: calc(1.5rem * var(--heading-scale) / 100);              /* 24px */
+  --text-2xl--line-height: calc(2 / 1.5);
+  --text-3xl: calc(1.875rem * var(--heading-scale) / 100);            /* 30px */
+  --text-3xl--line-height: calc(2.25 / 1.875);
+  --text-4xl: calc(2.25rem * var(--heading-scale) / 100);             /* 36px */
+  --text-4xl--line-height: calc(2.5 / 2.25);
+  --text-5xl: calc(3rem * var(--heading-scale) / 100);                /* 48px */
+  --text-5xl--line-height: 1;
+
+  /* Text links, separate from the button colour. */
+  --color-link: rgb(41 84 255);
+
+  /* Buttons get their own radius, apart from fields (see .l-btn below). */
+  --radius-button: 0.5rem;
+
+  /* Hover shades mixed from the base colours, for elements that are not l-* components. */
+  --color-primary-hover: color-mix(in oklab, var(--color-primary) 85%, black);
+  --color-base-400: color-mix(in oklab, var(--color-base-300) 70%, var(--color-base-content));
+
+  /* Offset shadows */
+  --shadow-thin: 0 1px var(--color-base-300);
+  --shadow-menu: 0 1px 3px rgb(0 0 0 / 0.2);
+  /* Drawers and dialogs, scaled by the Depth setting like the card shadow (0 keeps them flat). */
+  --shadow-dialog: 1px 1px 5px rgb(0 0 0 / calc(var(--depth) * 0.35));
+  /* Product card hover lift, scaled by the Depth setting (0 keeps it flat). */
+  --shadow-card: 0 4px 6px -1px rgb(0 0 0 / calc(var(--depth) * 0.1)), 0 2px 4px -2px rgb(0 0 0 / calc(var(--depth) * 0.1));
+
+  /* The countdown bar of a flash message that closes on its own: as long as AUTO_CLOSE_MS in Components/Messages */
+  --animate-toast-timer: toast-timer 15s linear forwards;
+  @keyframes toast-timer {
+    to {
+      transform: scaleX(0);
+    }
+  }
+  /* Through var() so Custom CSS can restyle focus; a literal here would be inlined by Tailwind. */
+  --shadow-input-focus: var(--field-focus);
+  --shadow-button-focus: var(--button-focus);
+
+  /* Layout */
+  --breakpoint-xs: 30rem;  /* 480px, the xs screen */
+  /* Frame widths (Group presets) and header height; theme settings override them on :root. */
+  --width-site: 90rem;     /* 1440px */
+  --width-content: 72rem;  /* 1152px */
+  --width-narrow: 48rem;   /* 768px */
+  --container-site: var(--width-site);
+  --container-content: var(--width-content);
+  --container-narrow: var(--width-narrow);
+  --spacing-header: 5rem;  /* 80px, the header's floor; it grows with its content */
+}
+
+@layer base {
+  /* Design tokens in the component library's names; each is written by a Theme tab field. */
+  :root {
+    /* Native controls follow it; the Color scheme setting overrides it on html. */
+    color-scheme: light;
+
+    --color-primary: rgb(41 84 255);
+    --color-primary-content: rgb(255 255 255);
+    --color-secondary: rgb(84 93 99);
+    --color-secondary-content: rgb(255 255 255);
+    --color-accent: var(--color-primary);
+    --color-accent-content: var(--color-primary-content);
+    --color-neutral: rgb(23 32 38);
+    --color-neutral-content: rgb(255 255 255);
+
+    --color-base-100: rgb(255 255 255);
+    --color-base-200: rgb(244 245 245);
+    --color-base-300: rgb(223 225 226);
+    --color-base-content: rgb(23 32 38);
+
+    --color-info: rgb(41 84 255);
+    --color-info-content: rgb(255 255 255);
+    --color-success: rgb(38 142 108);
+    --color-success-content: rgb(255 255 255);
+    --color-warning: rgb(178 107 17);
+    --color-warning-content: rgb(255 255 255);
+    --color-error: rgb(215 55 63);
+    --color-error-content: rgb(255 255 255);
+
+    --radius-box: 0.5rem;
+    --radius-field: 0.5rem;
+    /* Checkboxes: their own radius, the field one would round a 16px box. Badges stay round (below). */
+    --radius-selector: 0.25rem;
+    --size-field: 0.25rem;
+    --size-selector: 0.25rem;
+    --border: 2px;
+    --depth: 0;
+    --noise: 0;
+    /* Heading font scale in percent, unitless so calc() can use it */
+    --heading-scale: 100;
+
+    /* Focus rings, not settings; Custom CSS can override them. */
+    --button-focus: 0 0 0 3px color-mix(in oklab, var(--color-primary) 30%, white);
+    --field-focus: 0 0 0 3px color-mix(in oklab, var(--color-primary) 15%, transparent);
+  }
+
+  /* Bars fixed over the page (sticky header, cookie banner) set their heights, so focus scrolled into view clears them */
+  html {
+    scroll-padding-top: calc(var(--sticky-header-height, 0px) + var(--consent-top, 0px));
+    scroll-padding-bottom: var(--consent-bottom, 0px);
+  }
+
+  body {
+    @apply font-sans font-normal text-base-content bg-base-100 antialiased;
+  }
+
+  /* No box of its own, so a sticky header inside is bounded by #lynx. */
+  .page-header {
+    display: contents;
+  }
+}
+
+@layer components {
+  /*
+   * Frame grid of a constrained Group and the page shell: gutter | wide | content | wide | gutter.
+   * Blocks sit in content; data-align wide/full (from DynamicNode) reaches the outer tracks.
+   */
+  .constrained {
+    /* Site width and 16/24/32px gutters; a Group overrides them from its settings. */
+    --content-size: var(--width-site);
+    --wide-size: var(--width-site);
+    --gutter: 1rem;
+    display: grid;
+    grid-template-columns:
+      [full-start] minmax(var(--gutter), 1fr)
+      [wide-start] minmax(0, calc((var(--wide-size) - var(--content-size)) / 2))
+      [content-start] min(100% - 2 * var(--gutter), var(--content-size))
+      [content-end] minmax(0, calc((var(--wide-size) - var(--content-size)) / 2))
+      [wide-end] minmax(var(--gutter), 1fr)
+      [full-end];
+  }
+  .constrained > * {
+    grid-column: content;
+    min-width: 0;
+  }
+  /* data-align on the node itself. */
+  .constrained > [data-align="wide"] {
+    grid-column: wide;
+  }
+  .constrained > [data-align="full"] {
+    grid-column: full;
+  }
+  @media (width >= 40rem) {
+    .constrained {
+      --gutter: 1.5rem;
+    }
+  }
+  @media (width >= 64rem) {
+    .constrained {
+      --gutter: 2rem;
+    }
+  }
+
+  /* Buttons re-point the field radius to their own; a variable keeps join's inner corners working. */
+  .l-btn {
+    --radius-field: var(--radius-button);
+  }
+
+  /* Badges stay round whatever the small-controls radius: a count is a circle, a word a pill. */
+  .l-badge {
+    --radius-selector: 9999px;
+  }
+}
+
+/*
+ * Unlayered to beat the component layer: text fields rest on the Border colour (base-300).
+ * Checkbox and radio use the same token as their fill, so they are left out.
+ */
+.l-input,
+.l-select,
+.l-textarea {
+  --l-input-color: var(--color-base-300);
+}
+
+/*
+ * Focus: primary border plus the --field-focus / --button-focus tokens.
+ * outline-color stays transparent, not none, so forced-colors mode still paints an outline.
+ */
+.l-input:focus,
+.l-input:focus-within,
+.l-select:focus,
+.l-select:focus-within,
+.l-textarea:focus,
+.l-textarea:focus-within {
+  --l-input-color: var(--color-primary);
+  box-shadow: var(--field-focus);
+  outline-color: transparent;
+}
+
+.l-btn:focus-visible,
+.l-btn:has(:focus-visible) {
+  box-shadow: var(--button-focus);
+  outline-color: transparent;
+}
+
+.l-input-error,
+.l-input-error:focus,
+.l-input-error:focus-within {
+  --l-input-color: var(--color-error);
+}
+
+/* Outlined buttons stay outlined on hover/press, with a light tint of their own colour. */
+.l-btn-outline:hover,
+.l-btn-outline:active {
+  --l-btn-bg: color-mix(in oklab, var(--l-btn-color) 12%, var(--color-base-100));
+  --l-btn-border: var(--l-btn-color);
+  color: var(--l-btn-color);
+}
+
+/* Printing a page leaves out the header and footer bands; components hide their own chrome with print:hidden */
+@media print {
+  .page-header,
+  .page-footer {
+    display: none !important;
+  }
+}

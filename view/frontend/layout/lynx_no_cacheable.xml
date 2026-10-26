@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © OOCS Commerce (https://www.oocscommerce.com). All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+-->
+
+<!-- Keeps a page out of the full page cache: add <update handle="lynx_no_cacheable"/> to its layout. -->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="lynx.main.container">
+            <block class="Magento\Framework\View\Element\Text" name="lynx.no.cacheable" cacheable="false"/>
+        </referenceContainer>
+    </body>
+</page>

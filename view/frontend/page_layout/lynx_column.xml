@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © OOCS Commerce (https://www.oocscommerce.com). All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+-->
+<layout xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_layout.xsd">
+    <container name="root">
+        <container name="lynx.after.body.start" as="lynx.after.body.start" before="-" label="Page Top"/>
+        <container name="lynx.page.wrapper" as="lynx_page_wrapper" htmlTag="div" htmlClass="page-wrapper">
+            <container name="lynx.main.container" htmlTag="div" htmlId="maincontent">
+            </container>
+        </container>
+        <container name="lynx.before.body.end" as="lynx.before.body.end" after="-" label="Page Bottom"/>
+    </container>
+</layout>

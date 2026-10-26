@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © OOCS Commerce (https://www.oocscommerce.com). All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+-->
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <meta name="format-detection" content="telephone=no"/>
+    </head>
+    <body>
+        <attribute name="id" value="html-body"/>
+        <referenceContainer name="lynx.after.body.start">
+            <!-- Ahead of the bundle, so lynxStoreConfig is set before the entry runs -->
+            <block class="OOCS\LynxTheme\Block\Html\StoreConfig" name="lynx.store.config"
+                   template="OOCS_LynxTheme::html/store-config.phtml">
+                <arguments>
+                    <argument name="view_model" xsi:type="object">OOCS\LynxTheme\ViewModel\StoreConfig</argument>
+                </arguments>
+            </block>
+            <block class="Magento\Theme\Block\Html\Notices" name="global_notices" template="Magento_Theme::html/notices.phtml"/>
+        </referenceContainer>
+        <!-- Mount point; the template resolves in the active theme -->
+        <referenceContainer name="lynx.main.container">
+            <block class="OOCS\LynxInertia\Block\Inertia" name="lynx.inertia"
+                   template="OOCS_LynxInertia::inertia.phtml">
+                <arguments>
+                    <argument name="view_model" xsi:type="object">OOCS\LynxInertia\ViewModel\Inertia</argument>
+                    <!-- lynxStoreConfig for the SSR renderer, which has no window -->
+                    <argument name="store_config" xsi:type="object">OOCS\LynxTheme\ViewModel\StoreConfig</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+
+        <block class="Magento\Framework\View\Element\Template" name="head.critical" as="head.critical"
+               template="Magento_Theme::html/container.phtml"/>
+        <block class="Magento\Framework\View\Element\Template" name="head.additional" as="head.additional"
+               template="Magento_Theme::html/container.phtml"/>
+        <!-- Magento_Theme's default_head_blocks.xml: the theme's css/critical.css inline -->
+        <referenceBlock name="head.critical">
+            <block name="critical_css_block" as="critical_css" template="Magento_Theme::html/header/criticalCss.phtml"
+                   ifconfig="dev/css/use_css_critical_path">
+                <arguments>
+                    <argument name="criticalCssViewModel" xsi:type="object">Magento\Theme\Block\Html\Header\CriticalCss</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+    </body>
+</page>

@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © OOCS Commerce (https://www.oocscommerce.com). All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="layout_load_before">
+        <observer name="oocs_lynxtheme_set_lynx_page_layout" instance="OOCS\LynxTheme\Observer\SetLynxPageLayout"/>
+        <observer name="oocs_lynxtheme_add_lynx_layout_handles" instance="OOCS\LynxTheme\Observer\AddLynxLayoutHandles"/>
+        <observer name="oocs_lynxtheme_set_html_direction" instance="OOCS\LynxTheme\Observer\SetHtmlDirection"/>
+    </event>
+    <!--
+        Flash messages left by a predispatch observer that stopped the action (captcha) still reach the mage-messages
+        cookie.
+    -->
+    <event name="controller_front_send_response_before">
+        <observer name="oocs_lynxtheme_flash_messages_on_no_dispatch" instance="OOCS\LynxTheme\Observer\FlashMessagesOnNoDispatch"/>
+    </event>
+    <!--
+        An Inertia visit to a page handed back to Magento gets a location visit (409 + X-Inertia-Location) before the
+        action runs.
+    -->
+    <event name="controller_action_predispatch">
+        <observer name="oocs_lynxtheme_fallback_location_visit" instance="OOCS\LynxTheme\Observer\FallbackLocationVisit"/>
+    </event>
+</config>
